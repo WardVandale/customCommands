@@ -1,0 +1,11 @@
+#!/bin/bash
+reset="\\e[0m"
+red="\\e[31m"
+fail()    { printf "${red}✖ $*${reset}\n" 1>&2; exit 1; }
+[[ -z ${1} ]] &&
+  fail "IP/Host is needed"
+
+ssh -o StrictHostKeyChecking=no \
+-o UserKnownHostsFile=/dev/null \
+${1}
+
