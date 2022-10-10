@@ -1,0 +1,12 @@
+red="\\e[31m"
+green="\\e[32m"
+reset="\\e[0m"
+fail()    { printf "${red}✖ $*${reset}\n" 1>&2; exit 1; }
+success() { printf "${green}✔ $*${reset}\n" 1>&2; }
+
+[[ -z ${1} ]] &&
+  fail "Provide a file to create a symbolic link for"
+
+dir=$(pwd)
+file=${dir}/${1}
+sudo ln -s ${file} /usr/local/bin &> /dev/null && success "Symbolic Link successfully created" || fail "Symbolic Linked failed to create"
