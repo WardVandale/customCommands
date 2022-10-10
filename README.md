@@ -25,7 +25,8 @@ e.g. the new IP is automatically linked to a DNS Entry, upon connecting with SSH
 ```easyln tssh```
 
 ### Usage
-The same as a normal `ssh` command (simple ssh)
+The same as a normal `ssh` command
 ```tssh <user>@<host>```
 or 
 ```tssh <host>```
+You can also enter extra arguments as you would do with the normal ssh command
