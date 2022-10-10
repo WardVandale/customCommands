@@ -5,8 +5,8 @@ fail()    { printf "${red}✖ $*${reset}\n" 1>&2; exit 1; }
 [[ -z ${1} ]] &&
   fail "IP/Host is needed"
 
-cd ~/.ssh/keys/ixor.tcc2022-poc/
-ssh -i "id_rsa_ixor.tcc2022-poc" \
+cd <KEY LOCATION>
+ssh -i "<KEY NAME>" \
 -o StrictHostKeyChecking=no \
 -o UserKnownHostsFile=/dev/null \
 ec2-user@${1}
