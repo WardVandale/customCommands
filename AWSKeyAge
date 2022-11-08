@@ -1,0 +1,5 @@
+unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+export AWS_REGION="eu-central-1"
+eval $(op signin --account team-ixor.1password.eu)
+OTP="$(op item get 'Ixor AWS Bastion' --otp)"
+assumerole ixor.bastion ${OTP}

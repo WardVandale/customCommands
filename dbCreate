@@ -1,0 +1,3 @@
+ssh -o StrictHostKeyChecking=no \
+-o UserKnownHostsFile=/dev/null \
+-Nnt -A -L 5432:localhost:5432 $(aws ssm describe-instance-information --query "InstanceInformationList[*]|[?contains(ResourceType,'ManagedInstance')]|[?contains(PingStatus,'Online')].InstanceId"  --output text)
