@@ -9,4 +9,5 @@ success() { printf "${green}✔ $*${reset}\n" 1>&2; }
 
 dir=$(pwd)
 file=${dir}/${1}
+chmod a+x ${file}
 sudo ln -s ${file} /usr/local/bin &> /dev/null && success "Symbolic Link successfully created" || fail "Symbolic Linked failed to create"
