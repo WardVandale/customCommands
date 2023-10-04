@@ -16,7 +16,7 @@ BRANCH=${1}; shift
 BRANCH=$(echo ${BRANCH} | tr " " "-")
 [[ ${BRANCH} =~ ${VALID_BRANCH_NAME_REGEX} ]] || fail "Specify your ticket in the beginning of the branch"
 
-git checkout master || git checkout main
+git checkout master > /dev/null 2>&1 || git checkout main > /dev/null 2>&1
 git pull
 
 git checkout -b "feature/${BRANCH}"
