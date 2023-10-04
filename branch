@@ -1,0 +1,23 @@
+#!/bin/bash
+
+red="\\e[31m"
+green="\\e[32m"
+reset="\\e[0m"
+fail()    { printf "${red}✖ $*${reset}\n" 1>&2; exit 1; }
+success() { printf "${green}✔ $*${reset}\n" 1>&2; }
+
+VALID_BRANCH_NAME_REGEX="^[A-Z]+-[0-9]+(:|-| )"
+
+[[ -z ${1} ]] &&
+  fail "Provide a branch name (Can be with spaces)"
+
+BRANCH=${1}; shift
+[[ -n ${1} ]] && EXTRA_WORDS="${@}" && BRANCH="${BRANCH} ${EXTRA_WORDS}"
+BRANCH=$(echo ${BRANCH} | tr " " "-")
+[[ ${BRANCH} =~ ${VALID_BRANCH_NAME_REGEX} ]] || fail "Specify your ticket in the beginning of the branch"
+
+git checkout master || git checkout main
+git pull
+
+git checkout -b "feature/${BRANCH}"
+git push --set-upstream origin feature/${BRANCH}
