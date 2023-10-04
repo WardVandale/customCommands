@@ -1,0 +1,27 @@
+#!/bin/zsh
+
+# Colors used in script
+gray="\\e[37m"
+blue="\\e[36m"
+red="\\e[31m"
+green="\\e[32m"
+orange="\\e[33m"
+reset="\\e[0m"
+
+# Functions to call loggings
+info()    { printf "${blue}INFO: $*${reset}\n" 1>&2; }
+warning() { printf "${orange}WARN: $*${reset}\n" 1>&2; }
+error()   { printf "${red}ERROR: $*${reset}\n" 1>&2; }
+success() { printf "${green}✔ $*${reset}\n" 1>&2; }
+fail()    { printf "${red}✖ $*${reset}\n" 1>&2; exit 1; }
+debug()   { [[ "${DEBUG}" == "true" ]] && echo -e "${gray}DEBUG: $*${reset}\n"  1>&2 || true; }
+
+if [ "$#" -ne 1 ]; then
+	fail "Usage: $0 <device name>"
+fi
+
+DEVICE_NAME=$1
+DIR=~/projects/udini/udini-aws-cli-tools/remot3
+
+SSH_COMMAND=$(${DIR}/create_ssh_command.sh ${DEVICE_NAME}) && success $SSH_COMMAND || fail "Failed to create ssh command to log in, exiting"
+bash -c $SSH_COMMAND

@@ -1,0 +1,5 @@
+#!/bin/bash
+cd ${1:-~/Google\ Drive/My\ Drive/Basecamp/}
+ssconvert TimeSheet.xlsx TimeSheet.csv
+python3.11 register_ward.py
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Colors used in script"
+red="\\e[31m"
+green="\\e[32m"
+reset="\\e[0m"
+
+# Functions to call loggings
+error()   { printf "${red}ERROR: $*${reset}\n" 1>&2; }
+success() { printf "${green}✔ $*${reset}\n" 1>&2; }
+
+[[ -z ${1} ]] &&
+  error "Provide the length of the password (max 44)" && exit 1
+
+[[ ${1} -gt 44 ]] && error "Max lenght is 44" && exit 1
+
+PASS=$(date +%s | md5 | base64 | head -c ${1})
+
+echo "${PASS}"

@@ -1,0 +1,9 @@
+#!/bin/bash
+pbpaste > privKeyTemp
+echo -en '\n' >> privKeyTemp
+oneLiner=""
+while IFS= read -r line; do
+    oneLiner="$oneLiner$line\\\n"
+done < "privKeyTemp"
+rm -rf privKeyTemp
+echo ${oneLiner%???}
